@@ -31,6 +31,10 @@ class OrdersService {
         return axios.get(`${this.ORDERS_API_URL}/v1/orders`)
             .then(({data}) => data);
     }
+
+    deleteById(id) {
+        return axios.delete(`${this.ORDERS_API_URL}/v1/orders/${id}`);
+    }
 }
 
 export default OrdersService;
