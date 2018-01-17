@@ -4,6 +4,7 @@ import {BrowserRouter as Router, Route} from 'react-router-dom';
 
 import App from './App';
 import PlaceNewOrder from './components/PlaceNewOrder';
+import ListOrders from './components/ListOrders';
 
 ReactDOM.render(
     <Router>

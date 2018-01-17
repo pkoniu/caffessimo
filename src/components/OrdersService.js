@@ -18,12 +18,18 @@ class OrdersService {
 
     getById(id) {
         return axios.get(`${this.ORDERS_API_URL}/v1/orders/${id}`)
-            // .then(response => {
-            //     console.log(response);
-            // })
-            // .catch(error => {
-            //     console.error(error);
-            // });
+            .then(({data}) => data);
+        // .then(response => {
+        //     console.log(response);
+        // })
+        // .catch(error => {
+        //     console.error(error);
+        // });
+    }
+
+    getAll() {
+        return axios.get(`${this.ORDERS_API_URL}/v1/orders`)
+            .then(({data}) => data);
     }
 }
 
