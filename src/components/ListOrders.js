@@ -1,19 +1,37 @@
 import React, {Component} from 'react';
+import _ from 'lodash';
 
-import OrdersService from './OrdersService';
-import TableRow from "./TableRow";
+import OrdersService from './services/OrdersService';
+import OrdersTableRow from "./OrdersTableRow";
+import MenuItemsService from "./services/MenuItemsService";
 
 class ListOrders extends Component {
     constructor(props) {
         super(props);
-        this.state = {value: '', item: ''};
+        this.state = {value: '', items: ''};
         this.ordersService = new OrdersService();
+        this.menuItemsService = new MenuItemsService();
     }
 
     componentDidMount() {
+        let ordersGlobal;
         this.ordersService.getAll()
             .then(orders => {
-                this.setState({items: orders});
+                ordersGlobal = orders;
+                return Promise.all(orders.map(order => order.id).map(id => this.menuItemsService.getById(id)));
+            })
+            .then(promiseResponses => {
+                const menuItemsForOrders = _.flatten(promiseResponses);
+                const ordersWithMenuItemName = _.zipWith(menuItemsForOrders, ordersGlobal, function(menuItem, order) {
+                    return {
+                        menuItemId: menuItem._id,
+                        orderId: order._id,
+                        menuItemName: menuItem.name,
+                        userId: order.forClient,
+                        orderPrice: menuItem.price
+                    };
+                });
+                this.setState({items: ordersWithMenuItemName})
             })
             .catch(error => {
                 console.error(error);
@@ -23,7 +41,7 @@ class ListOrders extends Component {
     tabRow() {
         if (this.state.items instanceof Array) {
             return this.state.items.map((object, i) => {
-                return <TableRow obj={object} key={i}/>;
+                return <OrdersTableRow obj={object}  key={i}/>;
             });
         }
     }
@@ -35,8 +53,11 @@ class ListOrders extends Component {
                     <table className="table table-striped">
                         <thead>
                         <tr>
+                            <td>Menu item ID</td>
                             <td>Order ID</td>
-                            <td>For Client</td>
+                            <td>Menu item name</td>
+                            <td>User ID</td>
+                            <td>Order price</td>
                         </tr>
                         </thead>
                         <tbody>

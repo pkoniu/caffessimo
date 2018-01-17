@@ -1,27 +1,36 @@
 import React, {Component} from 'react';
 
-import OrdersService from './OrdersService';
+import OrdersService from './services/OrdersService';
 
-class TableRow extends Component {
+class OrdersTableRow extends Component {
     constructor(props) {
         super(props);
-        this.addItemService = new OrdersService();
+        this.ordersService = new OrdersService();
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleSubmit(event) {
         event.preventDefault();
-        this.addItemService.deleteById(this.props.obj._id);
+        this.ordersService.deleteById(this.props.obj.orderId);
     }
 
     render() {
         return (
             <tr>
                 <td>
-                    {this.props.obj._id}
+                    {this.props.obj.menuItemId}
                 </td>
                 <td>
-                    {this.props.obj.forClient}
+                    {this.props.obj.orderId}
+                </td>
+                <td>
+                    {this.props.obj.menuItemName}
+                </td>
+                <td>
+                    {this.props.obj.userId}
+                </td>
+                <td>
+                    {this.props.obj.orderPrice}
                 </td>
                 <td>
                     <form onSubmit={this.handleSubmit}>
@@ -33,4 +42,4 @@ class TableRow extends Component {
     }
 }
 
-export default TableRow;
+export default OrdersTableRow;
