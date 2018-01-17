@@ -8,8 +8,9 @@ import PlaceNewOrder from './components/PlaceNewOrder';
 ReactDOM.render(
     <Router>
         <div>
-            <Route exact path='/' component={App}></Route>
-            <Route path='/new-order' component={PlaceNewOrder}></Route>
+            <Route exact path='/' component={App} />
+            <Route path='/new-order' component={PlaceNewOrder} />
+            <Route path='/orders' component={ListOrders} />
         </div>
     </Router>,
     document.getElementById('root')

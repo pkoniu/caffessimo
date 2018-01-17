@@ -1,9 +1,12 @@
 import React, {Component} from 'react';
 
+import OrdersService from './OrdersService';
+
 class PlaceNewOrder extends Component {
     constructor(props) {
         super(props);
-        this.state = {value: ''};
+        this.state = {menuItemId: '', forClientId: ''};
+        this.ordersService = new OrdersService();
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -11,13 +14,18 @@ class PlaceNewOrder extends Component {
 
     handleChange(event) {
         this.setState({
-            value: event.target.value
+            [event.target.name]: event.target.value
         });
     }
 
     handleSubmit(event) {
-        alert(this.state.value);
         event.preventDefault();
+        const newOrderDetails = {
+            id: this.state.menuItemId,
+            forClient: this.state.forClientId
+        };
+        this.ordersService.sendData(newOrderDetails);
+        this.props.history.push('/');
     }
 
     render() {
@@ -27,7 +35,11 @@ class PlaceNewOrder extends Component {
                     <form onSubmit={this.handleSubmit}>
                         <label>
                             Place new order:
-                            <input type="text" value={this.state.value} onChange={this.handleChange} className="formControl"/>
+                            <input name="menuItemId" type="text" value={this.state.menuItemId} onChange={this.handleChange} className="formControl"/>
+                        </label><br/>
+                        <label>
+                            For:
+                            <input name="forClientId" type="text" value={this.state.forClientId} onChange={this.handleChange} className="formControl"/>
                         </label><br/>
                         <input type="submit" value="Submit" className="btn btn-primary"/>
                     </form>
