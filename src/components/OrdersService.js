@@ -6,12 +6,12 @@ class OrdersService {
     }
 
     sendData(data) {
-        console.log('####', data);
         axios.post(`${this.ORDERS_API_URL}/v1/orders`, data)
             .then(response => {
                 console.log(response);
             })
             .catch(error => {
+                alert('Order creation failed: ' + error);
                 console.error(error);
             });
     }
@@ -19,12 +19,6 @@ class OrdersService {
     getById(id) {
         return axios.get(`${this.ORDERS_API_URL}/v1/orders/${id}`)
             .then(({data}) => data);
-        // .then(response => {
-        //     console.log(response);
-        // })
-        // .catch(error => {
-        //     console.error(error);
-        // });
     }
 
     getAll() {
