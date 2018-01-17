@@ -3,11 +3,11 @@ import _ from 'lodash';
 
 class MenuItemsService {
     constructor(props) {
-        const NODE_ENV = _.get(process, 'env', 'local');
-        if (NODE_ENV === 'production') {
-            this.ORDERS_API_URL = 'http://iosr2017orders-production/v1/menu/items';
-        } else if (NODE_ENV === 'staging') {
-            this.ORDERS_API_URL = 'http://iosr2017orders-staging/v1/menu/items';
+        const REACT_APP_NODE_ENV = _.get(process, 'env', 'local');
+        if (REACT_APP_NODE_ENV === 'production') {
+            this.ORDERS_API_URL = 'https://iosr2017orders-production.herokuapp.com/v1/menu/items';
+        } else if (REACT_APP_NODE_ENV === 'staging') {
+            this.ORDERS_API_URL = 'https://iosr2017orders-staging.herokuapp.com/v1/menu/items';
         } else {
             this.ORDERS_API_URL = 'http://localhost:3002/v1/menu/items';
         }
