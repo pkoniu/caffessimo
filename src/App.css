@@ -1,3 +1,7 @@
+body {
+  padding-top: 50px;
+}
+
 .App {
   text-align: center;
 }
@@ -20,6 +24,20 @@
 
 .App-intro {
   font-size: large;
+}
+
+.container {
+  max-width: 500px;
+}
+
+.login-container form input {
+  margin-bottom: 20px;
+}
+
+
+.login-container form button {
+  display: block;
+  margin: 0 auto;
 }
 
 @keyframes App-logo-spin {
