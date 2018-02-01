@@ -3,9 +3,9 @@ import axios from 'axios';
 class OrdersService {
     constructor(props) {
         if (process.env.REACT_APP_NODE_ENV === 'production') {
-            this.ORDERS_API_URL = 'https://iosr2017orders.herokuapp.com';
+            this.ORDERS_API_URL = 'https://iosr2017orders-production.herokuapp.com';
         } else if (process.env.REACT_APP_NODE_ENV === 'staging') {
-            this.ORDERS_API_URL = 'https://iosr2017orders.herokuapp.com';
+            this.ORDERS_API_URL = 'https://iosr2017orders-staging.herokuapp.com';
         } else {
             this.ORDERS_API_URL = 'http://localhost:3003';
         }
