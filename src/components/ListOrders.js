@@ -28,7 +28,8 @@ class ListOrders extends Component {
                         orderId: order._id,
                         menuItemName: menuItem.name,
                         userId: order.forClient,
-                        orderPrice: menuItem.price
+                        orderPrice: menuItem.price,
+                        status: order.status
                     };
                 });
                 this.setState({items: ordersWithMenuItemName})
@@ -58,6 +59,7 @@ class ListOrders extends Component {
                             <td>Menu item name</td>
                             <td>User ID</td>
                             <td>Order price</td>
+                            <td>Status</td>
                         </tr>
                         </thead>
                         <tbody>
