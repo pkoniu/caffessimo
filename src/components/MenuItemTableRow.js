@@ -11,11 +11,12 @@ class MenuItemTableRow extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
+
         const newOrderDetails = {
             id: this.props.obj._id,
-            forClient: "5a3a3e73e4630016c0a55ee1"
+            forClient: localStorage.getItem('userID')
         };
-        this.ordersService.sendData(newOrderDetails);
+        this.ordersService.sendData(newOrderDetails, localStorage.getItem('token'));
         alert('New order submitted.')
     }
 

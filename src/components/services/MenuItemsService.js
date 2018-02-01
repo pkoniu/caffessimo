@@ -10,14 +10,25 @@ class MenuItemsService {
             this.CLIENTS_API_URL = 'http://localhost:3002/v1/menu/items';
         }
     }
-    getById(id) {
-        return axios.get(`${this.CLIENTS_API_URL}/${id}`)
-            .then(({data}) => data);
+
+    getById(id, token) {
+        return axios({
+            method: 'GET',
+            url: `${this.CLIENTS_API_URL}/${id}`,
+            headers: {
+                'authorization': `Bearer ${token}`
+            }
+        }).then(({data}) => data);
     }
 
-    getAll() {
-        return axios.get(`${this.CLIENTS_API_URL}/`)
-            .then(({data}) => data);
+    getAll(token) {
+        return axios({
+            method: 'GET',
+            url: `${this.CLIENTS_API_URL}/`,
+            headers: {
+                'authorization': `Bearer ${token}`
+            }
+        }).then(({data}) => data);
     }
 }
 

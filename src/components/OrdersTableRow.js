@@ -11,7 +11,7 @@ class OrdersTableRow extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        this.ordersService.deleteById(this.props.obj.orderId);
+        this.ordersService.deleteById(this.props.obj.orderId, localStorage.getItem('token'));
     }
 
     render() {

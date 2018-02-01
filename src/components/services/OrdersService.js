@@ -11,29 +11,50 @@ class OrdersService {
         }
     }
 
-    sendData(data) {
-        axios.post(`${this.ORDERS_API_URL}/v1/orders`, data)
-            .then(response => {
-                console.log(response);
-            })
-            .catch(error => {
-                alert('Order creation failed: ' + error);
-                console.error(error);
-            });
+    sendData(data, token) {
+        axios({
+            method: 'POST',
+            url: `${this.ORDERS_API_URL}/v1/orders`,
+            headers: {
+                'authorization': `Bearer ${token}`
+            },
+            data
+        }).then(response => {
+            console.log(response);
+        }).catch(error => {
+            alert('Order creation failed: ' + error);
+            console.error(error);
+        });
     }
 
-    getById(id) {
-        return axios.get(`${this.ORDERS_API_URL}/v1/orders/${id}`)
-            .then(({data}) => data);
+    getById(id, token) {
+        return axios({
+            method: 'GET',
+            url: `${this.ORDERS_API_URL}/v1/orders/${id}`,
+            headers: {
+                'authorization': `Bearer ${token}`
+            }
+        }).then(({data}) => data);
     }
 
-    getAll() {
-        return axios.get(`${this.ORDERS_API_URL}/v1/orders`)
-            .then(({data}) => data);
+    getAll(token) {
+        return axios({
+            method: 'GET',
+            url: `${this.ORDERS_API_URL}/v1/orders`,
+            headers: {
+                'authorization': `Bearer ${token}`
+            }
+        }).then(({data}) => data);
     }
 
-    deleteById(id) {
-        return axios.delete(`${this.ORDERS_API_URL}/v1/orders/${id}`);
+    deleteById(id, token) {
+        return axios({
+            method: 'DELETE',
+            url: `${this.ORDERS_API_URL}/v1/orders/${id}`,
+            headers: {
+                'authorization': `Bearer ${token}`
+            }
+        }).then(({data}) => data);
     }
 }
 

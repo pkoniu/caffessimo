@@ -15,10 +15,10 @@ class ListOrders extends Component {
 
     componentDidMount() {
         let ordersGlobal;
-        this.ordersService.getAll()
+        this.ordersService.getAll(localStorage.getItem('token'))
             .then(orders => {
                 ordersGlobal = orders;
-                return Promise.all(orders.map(order => order.id).map(id => this.menuItemsService.getById(id)));
+                return Promise.all(orders.map(order => order.id).map(id => this.menuItemsService.getById(id, localStorage.getItem('token'))));
             })
             .then(promiseResponses => {
                 const menuItemsForOrders = _.flatten(promiseResponses);

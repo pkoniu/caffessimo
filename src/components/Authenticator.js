@@ -1,6 +1,7 @@
 import React, {
     Component
 } from 'react';
+import jwt_decode from 'jwt-decode';
 import AuthenticatorService from './services/AuthenticatorService';
 
 class Authenticator extends Component {
@@ -18,6 +19,8 @@ class Authenticator extends Component {
     API = new AuthenticatorService();
 
     handleLoginSuccess = (successResponse) => {
+        const decodedToken = jwt_decode(successResponse.data.token);
+        localStorage.setItem('userID', decodedToken.user._id.toString());
         localStorage.setItem('token', successResponse.data.token);
         this.setState({
             authenticated: true
@@ -27,7 +30,7 @@ class Authenticator extends Component {
     handleLoginError = (error) => {
         this.setState({
             hasErrored: true,
-            errorMessage: error
+            errorMessage: error.message
         });
     };
 
@@ -54,8 +57,8 @@ class Authenticator extends Component {
 
     handleRegister = (e) => {
         e.preventDefault();
-        let {username, password} = this.state;
-        this.API.register({username, password})
+        let {username2, password2} = this.state;
+        this.API.register({username: username2, password: password2})
             .then(this.handleRegisterSuccess)
             .catch(this.handleRegisterError);
     };
@@ -86,10 +89,12 @@ class Authenticator extends Component {
                     <input className="form-control"
                            placeholder="Username"
                            type="text" name="username2"
-                           value={this.state.username2} onChange={this.handleValueChange}/>
+                           value={this.state.username2}
+                           onChange={this.handleValueChange}/>
                     <input className="form-control"
                            placeholder="Password"
-                           type="password" name="password2" value={this.state.password2}
+                           type="password" name="password2"
+                           value={this.state.password2}
                            onChange={this.handleValueChange}/>
                     <button type="submit" className="btn btn-success">Register</button>
                 </form>

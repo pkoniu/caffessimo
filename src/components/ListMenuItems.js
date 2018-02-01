@@ -11,7 +11,7 @@ class ListOrders extends Component {
     }
 
     componentDidMount() {
-        this.menuItemsService.getAll()
+        this.menuItemsService.getAll(localStorage.getItem('token'))
             .then(orders => {
                 this.setState({items: orders});
             })
